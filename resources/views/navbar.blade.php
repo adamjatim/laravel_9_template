@@ -28,6 +28,11 @@
                 @else
                     text-gray-300 hover:bg-gray-700 hover:text-white @endif">Daftar
                     Penyewa</a>
+                <a href="/penyewa"
+                    class="rounded-md px-3 py-2 text-sm font-medium @if (Route::is('penyewa.*')) text-white bg-gray-900
+                    @else
+                        text-gray-300 hover:bg-gray-700 hover:text-white @endif">Daftar
+                    Penyewa</a>
                 <a href="/cars"
                     class="rounded-md px-3 py-2 text-sm font-medium @if (Route::is('cars.*')) text-white bg-gray-900
                 @else

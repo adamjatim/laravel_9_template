@@ -8,27 +8,21 @@ use App\Models\User;
 use App\Models\Car;
 use Illuminate\Support\Facades\DB;
 
-class RentalController extends Controller
+class SewaController extends Controller
 {
     // 📌 Tampilkan daftar rental (hanya user dengan role 'user')
-    
     public function index()
     {
-        $rentals = Rental::with(['user', 'car'])
-            ->whereHas('user', function ($query) {
-                $query->where('role', 'user');
-            })
-            ->get();
-        $users = User::all();
-
-        return view('rentals.index', compact('rentals'));
+        $cars = Car::all();
+        $rentals = Rental::all()->where('user_id', auth()->user()->id);
+        return view('user.index', compact('cars', 'rentals'));
     }
 
     // 📌 Tampilkan detail rental
     public function show($id)
     {
         $rental = Rental::with(['user', 'car'])->findOrFail($id);
-        return view('rentals.show', compact('rental'));
+        return view('user.show', compact('rental'));
     }
 
     // 📌 Tampilkan form tambah rental
@@ -37,7 +31,7 @@ class RentalController extends Controller
         $users = User::where('role', 'user')->get();
         $cars = Car::all();
 
-        return view('rentals.create', compact('users', 'cars'));
+        return view('user.create', compact('users', 'cars'));
     }
 
     // 📌 Simpan rental baru
@@ -54,7 +48,7 @@ class RentalController extends Controller
 
         Rental::create($request->all());
 
-        return redirect()->route('rentals.index')->with('success', 'Rental berhasil ditambahkan!');
+        return redirect()->route('user.index')->with('success', 'Rental berhasil ditambahkan!');
     }
 
     // 📌 Tampilkan form edit rental
@@ -63,7 +57,7 @@ class RentalController extends Controller
         $rental = Rental::findOrFail($id);
         $cars = Car::all(); // Mengambil semua mobil untuk opsi dropdown
 
-        return view('rentals.edit', compact('rental',  'cars'));
+        return view('user.edit', compact('rental',  'cars'));
     }
 
 
@@ -89,7 +83,7 @@ class RentalController extends Controller
             'status' => $request->status,
         ]);
 
-        return redirect()->route('rentals.index')->with('success', 'Penyewaan berhasil diperbarui.');
+        return redirect()->route('user.index')->with('success', 'Penyewaan berhasil diperbarui.');
     }
 
 
@@ -100,6 +94,6 @@ class RentalController extends Controller
         $rental = Rental::findOrFail($id);
         $rental->delete();
 
-        return redirect()->route('rentals.index')->with('success', 'Penyewaan berhasil dihapus.');
+        return redirect()->route('user.index')->with('success', 'Penyewaan berhasil dihapus.');
     }
 }

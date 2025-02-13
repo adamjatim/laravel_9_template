@@ -1,12 +1,12 @@
 @extends('layout')
 
-@section('title', 'Daftar Mobil')
+@section('title', 'Daftar Penyewaan Mobil')
 
 @section('content')
     <div class="flex flex-col items-center w-full">
         {{-- Header --}}
         <div class="flex flex-row justify-between w-full">
-            <h1 class="text-3xl font-bold text-gray-800 mb-6">Daftar Mobil</h1>
+            <h1 class="text-3xl font-bold text-gray-800 mb-6">Daftar Penyewaan User</h1>
         </div>
 
         {{-- Flash Message --}}
@@ -19,29 +19,16 @@
         {{-- Table --}}
         <div class="bg-white rounded-lg w-full overflow-x-auto shadow-md">
             <div class="py-3 flex flex-row w-full justify-between px-4">
-                {{-- Search Input --}}
-                {{-- <div class="relative max-w-xs">
-                    <input type="text" name="search" id="search"
-                        class="py-2 px-3 ps-9 block w-full border-gray-300 border rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500"
-                        placeholder="Cari...">
-                    <div class="absolute inset-y-0 start-0 flex items-center ps-3">
-                        <svg class="size-4 text-gray-400" xmlns="http://www.w3.org/2000/svg" width="24" height="24"
-                            viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                            stroke-linejoin="round">
-                            <circle cx="11" cy="11" r="8"></circle>
-                            <path d="m21 21-4.3-4.3"></path>
-                        </svg>
-                    </div>
-                </div> --}}
-                {{-- Tambah Mobil --}}
-                <a href="{{ route('cars.create') }}"
+
+                {{-- Tambah Penyewaan --}}
+                <a href="{{ route('sewa.create') }}"
                     class="flex flex-row items-center bg-blue-500 text-white font-bold py-2 px-4 rounded shadow hover:bg-blue-600">
                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
                         class="mr-2">
                         <path fill="currentColor"
                             d="M10.5 20a1.5 1.5 0 0 0 3 0v-6.5H20a1.5 1.5 0 0 0 0-3h-6.5V4a1.5 1.5 0 0 0-3 0v6.5H4a1.5 1.5 0 0 0 0 3h6.5z" />
                     </svg>
-                    Tambah Mobil
+                    Tambah Sewa
                 </a>
             </div>
 
@@ -49,22 +36,28 @@
                 <table class="w-full divide-y divide-gray-200" id="table">
                     <thead class="bg-gray-50">
                         <tr>
-                            <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase w-16">No</th>
-                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Nama Mobil</th>
-                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase w-40">Brand</th>
-                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase w-40">Tahun</th>
+                            <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase w-10">No</th>
+                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase w-40">Tanggal Sewa</th>
+                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase w-40">Tanggal Kembali</th>
+                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase w-40">Status</th>
                             <th class="px-6 py-3 text-center text-xs font-medium text-gray-500 uppercase w-32">Aksi</th>
                         </tr>
                     </thead>
                     <tbody class="divide-y divide-gray-200">
-                        @forelse ($cars as $index => $car)
-                            <tr class="{{ $index % 2 === 0 ? 'bg-white' : 'bg-gray-100' }}">
-                                <td class="px-4 py-3 text-center text-sm text-gray-700">{{ $index + 1 }}</td>
-                                <td class="px-6 py-3 text-sm text-gray-700">{{ $car->name ?? '-' }}</td>
-                                <td class="px-6 py-3 text-sm text-gray-700">{{ $car->brand ?? '-' }}</td>
-                                <td class="px-6 py-3 text-sm text-gray-700">{{ $car->year ?? '-' }}</td>
+                        @forelse ($rentals as $index => $rental)
+                            <tr class="{{ $loop->iteration % 2 == 0 ? 'bg-white' : 'bg-gray-100' }}">
+                                <td class="px-4 py-3 text-center text-sm text-gray-700">{{ $loop->iteration }}</td>
+                                <td class="px-6 py-3 text-sm text-gray-700">{{ $rental->rental_date ?? '-' }}</td>
+                                <td class="px-6 py-3 text-sm text-gray-700">{{ $rental->end_date ?? '-' }}</td>
+                                <td class="px-6 py-3 text-sm text-gray-700">
+                                    <span
+                                        class="
+                                    @if ($rental->status == 'active') bg-yellow-400
+                                    @elseif ($rental->status == 'completed') bg-green-400/80
+                                    @elseif ($rental->status == 'cancelled') bg-red-400/80 @endif px-2 py-0.5 rounded-xl flex w-full justify-evenly">{{ $rental->status ?? '-' }}</span>
+                                </td>
                                 <td class="px-4 py-2 flex flex-row justify-center space-x-2">
-                                    <a href="{{ route('cars.show', $car->id) }}"
+                                    <a href="{{ route('sewa.show', $rental->id) }}"
                                         class="bg-blue-500 text-white text-xs font-bold py-1 px-3 rounded hover:bg-blue-600 flex items-center">
                                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
                                             viewBox="0 0 24 24" class="mr-1">
@@ -74,8 +67,8 @@
                                         </svg>
                                         Detail
                                     </a>
-                                    <a href="{{ route('cars.edit', $car->id) }}"
-                                        class="bg-yellow-500 text-white text-xs font-bold py-1 px-3 rounded hover:bg-yellow-600 flex items-center flex flex-row">
+                                    <a href="{{ route('sewa.edit', $rental->id) }}"
+                                        class="bg-yellow-500 text-white text-xs font-bold py-1  px-3 rounded hover:bg-yellow-600 flex items-center flex flex-row">
                                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
                                             viewBox="0 0 24 24">
                                             <g fill="none" stroke="currentColor" stroke-linecap="round"
@@ -86,7 +79,7 @@
                                         </svg>
                                         Edit
                                     </a>
-                                    <form action="{{ route('cars.destroy', $car->id) }}" method="POST"
+                                    <form action="{{ route('sewa.destroy', $rental->id) }}" method="POST"
                                         onsubmit="return confirm('Apakah Anda yakin ingin menghapus penyewaan ini?');">
                                         @csrf
                                         @method('DELETE')
@@ -118,4 +111,3 @@
         </div>
     </div>
 @endsection
-

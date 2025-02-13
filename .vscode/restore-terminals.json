@@ -7,7 +7,7 @@
       "splitTerminals": [
         {
           "name": "php server",
-          "commands": [" ","php artisan serve"]
+          "commands": [" "," ","php artisan serve --port=8002"]
         },
 				{
 					"name": "main",

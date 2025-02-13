@@ -7,6 +7,8 @@
     <title>@yield('title')</title>
     <link rel="stylesheet" href="{{ asset('css/app.css') }}">
     <script src="https://unpkg.com/@tailwindcss/browser@4"></script>
+    <link rel="stylesheet" href="{{ asset('DataTables/datatables.css') }}">
+    <link rel="stylesheet" href="{{ asset('DataTables/datatables.min.css') }}">
     {{-- Load CSS (gunakan Vite jika Laravel 9 menggunakan Vite) --}}
 
     @yield('stylesheet')
@@ -29,8 +31,17 @@
         <p>&copy; {{ date('Y') }} ASLAB SISFOKOM ITATS</p>
     </footer>
 
+    <script src="{{ asset('jquery-3.7.1.min.js') }}"></script>
     <script src="{{ asset('js/mobile-hamburger.js') }}"></script>
     <script src="{{ asset('js/formater.js') }}"></script>
+    <script src="{{ asset('DataTables/datatables.js') }}"></script>
+    <script src="{{ asset('DataTables/datatables.min.js') }}"></script>
+    <script>
+        $(document).ready(function() {
+            $('#table').DataTable(); // Pastikan ID tabel benar
+        });
+    </script>
+
 </body>
 
 </html>

@@ -21,7 +21,7 @@
             <div class="py-3 flex flex-row w-full justify-between px-4">
                 {{-- Search Input --}}
 
-                <form method="GET" action="{{ route('cars.index') }}" class="mb-4">
+                {{-- <form method="GET" action="{{ route('cars.index') }}" class="mb-4">
                     <div class="flex">
                         <input type="text" name="search" value="{{ request('search') }}"
                             placeholder="Cari mobil (nama atau brand)..."
@@ -35,7 +35,7 @@
                             </svg>
                         </button>
                     </div>
-                </form>
+                </form> --}}
 
                 {{-- Tambah Penyewaan --}}
                 <a href="{{ route('rentals.create') }}"
@@ -50,7 +50,7 @@
             </div>
 
             <div class="overflow-auto">
-                <table class="w-full divide-y divide-gray-200">
+                <table class="w-full divide-y divide-gray-200" id="table">
                     <thead class="bg-gray-50">
                         <tr>
                             <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase w-16">No</th>

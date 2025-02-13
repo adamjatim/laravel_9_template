@@ -27,7 +27,7 @@
             {{-- Tahun --}}
             <div>
                 <label for="year" class="block text-gray-700 font-medium">Tahun:</label>
-                <input type="number" name="year" value="{{ $cars->year }}" oninput="formatRupiah(this)" required
+                <input type="number" name="year" value="{{ $cars->year }}" required
                     class="w-full mt-1 p-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
             </div>
 
