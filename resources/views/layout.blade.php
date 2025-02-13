@@ -42,6 +42,30 @@
         });
     </script>
 
+    <script>
+        $(document).ready(function() {
+            // Fungsi untuk update input
+            function updateCarDetails() {
+                // Ambil teks dari opsi yang dipilih
+                const selectedText = $('#car_id option:selected').text();
+
+                // Pisahkan nama dan merek mobil
+                const [carName, carBrand] = selectedText.split(' - ');
+
+                // Update nilai input
+                $('#car_name').val(carName || '');
+                $('#car_brand').val(carBrand || '');
+            }
+
+            // Jalankan fungsi saat dropdown berubah
+            $('#car_id').on('change', updateCarDetails);
+
+            // Jalankan fungsi saat halaman dimuat (untuk mengisi nilai awal)
+            updateCarDetails();
+        });
+    </script>
+
+    @yield('script')
 </body>
 
 </html>

@@ -28,7 +28,7 @@
             @method('PUT')
 
             {{-- Nama Mobil --}}
-            <div>
+            {{-- <div>
                 <label for="car_id" class="block text-gray-700 font-medium">Pilih Mobil:</label>
                 <select name="car_id" id="car_id" required
                     class="w-full mt-1 p-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
@@ -38,6 +38,26 @@
                         </option>
                     @endforeach
                 </select>
+            </div> --}}
+            <div class="form-group">
+                <label for="car_id" class="block text-gray-700 font-medium">Pilih Mobil</label>
+                <select name="car_id" id="car_id"
+                    class="form-control w-full mt-1 p-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
+                    <option value="">-- Pilih Mobil --</option>
+                    @foreach ($cars as $car)
+                        <option value="{{ $car->id }}" {{ $rental->car_id == $car->id ? 'selected' : '' }}>{{ $car->name }} - {{ $car->brand }}</option>
+                    @endforeach
+                </select>
+            </div>
+            <!-- Input Nama dan Merek Mobil -->
+            <div class="form-group hidden">
+                <label for="car_name">Nama Mobil</label>
+                <input type="text" id="car_name" class="form-control">
+            </div>
+
+            <div class="form-group hidden">
+                <label for="car_brand">Merek Mobil</label>
+                <input type="text" id="car_brand" class="form-control">
             </div>
             {{-- <div>
                 <label class="block text-gray-700 font-medium">Nama Mobil:</label>
@@ -55,23 +75,24 @@
             {{-- Tanggal Sewa --}}
             <div>
                 <label class="block text-gray-700 font-medium">Tanggal Sewa:</label>
-                <input type="date" value="{{ $rental->rental_date }}"
-                    class="w-full mt-1 p-2 border border-gray-300 rounded-md bg-gray-100">
+                <input type="date" name="rental_date"  value="{{ $rental->rental_date }}"
+                    class="w-full mt-1 p-2 border border-gray-300 rounded-md">
             </div>
 
             {{-- Tanggal Kembali --}}
             <div>
                 <label class="block text-gray-700 font-medium">Tanggal Kembali:</label>
-                <input type="date" value="{{ $rental->end_date }}" 
-                    class="w-full mt-1 p-2 border border-gray-300 rounded-md bg-gray-100">
+                <input type="date" name="end_date" value="{{ $rental->end_date }}"
+                    class="w-full mt-1 p-2 border border-gray-300 rounded-md">
             </div>
 
             {{-- Total Harga Sewa --}}
             <label class="block text-gray-700 font-medium m-0">Total Harga:</label>
             <div class="flex items-center border border-gray-300 rounded-md p-2 bg-gray-100 w-full">
                 <span class="text-gray-700 font-medium">Rp.</span>
-                <input type="text" id="formatted_price" value="{{ $rental->total_price }}"
-                    class="w-full ml-2 p-1 bg-transparent outline-none" readonly>
+                <input type="text" id="formatted_price_car" class="w-full ml-2 p-1 bg-transparent outline-none"
+                    placeholder="0" onkeypress="return event.charCode >= 48 && event.charCode <= 57" readonly>
+                <input type="hidden" id="price" name="total_price" value="{{ $rental->total_price }}">
             </div>
 
             {{-- Status --}}
@@ -95,3 +116,7 @@
         </form>
     </div>
 @endsection
+
+@section('scripts')
+@endsection
+

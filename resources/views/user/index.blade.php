@@ -6,7 +6,7 @@
     <div class="flex flex-col items-center w-full">
         {{-- Header --}}
         <div class="flex flex-row justify-between w-full">
-            <h1 class="text-3xl font-bold text-gray-800 mb-6">Daftar Penyewaan User</h1>
+            <h1 class="text-3xl font-bold text-gray-800 mb-6">Daftar Mobil Sewaan User</h1>
         </div>
 
         {{-- Flash Message --}}
@@ -37,6 +37,7 @@
                     <thead class="bg-gray-50">
                         <tr>
                             <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase w-10">No</th>
+                            <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase w-10">Nama Mobil</th>
                             <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase w-40">Tanggal Sewa</th>
                             <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase w-40">Tanggal Kembali</th>
                             <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase w-40">Status</th>
@@ -47,6 +48,7 @@
                         @forelse ($rentals as $index => $rental)
                             <tr class="{{ $loop->iteration % 2 == 0 ? 'bg-white' : 'bg-gray-100' }}">
                                 <td class="px-4 py-3 text-center text-sm text-gray-700">{{ $loop->iteration }}</td>
+                                <td class="px-6 py-3 text-sm text-gray-700">{{ $rental->car->name?? '-' }}</td>
                                 <td class="px-6 py-3 text-sm text-gray-700">{{ $rental->rental_date ?? '-' }}</td>
                                 <td class="px-6 py-3 text-sm text-gray-700">{{ $rental->end_date ?? '-' }}</td>
                                 <td class="px-6 py-3 text-sm text-gray-700">

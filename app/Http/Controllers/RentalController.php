@@ -11,7 +11,7 @@ use Illuminate\Support\Facades\DB;
 class RentalController extends Controller
 {
     // 📌 Tampilkan daftar rental (hanya user dengan role 'user')
-    
+
     public function index()
     {
         $rentals = Rental::with(['user', 'car'])
@@ -72,7 +72,6 @@ class RentalController extends Controller
     {
         $request->validate([
             'car_id' => 'required',
-            'user_id' => 'required',
             'rental_date' => 'required',
             'end_date' => 'required',
             'total_price' => 'required',
@@ -82,7 +81,6 @@ class RentalController extends Controller
         $rental = Rental::findOrFail($id);
         $rental->update([
             'car_id' => $request->car_id,
-            'user_id' => $request->user_id,
             'rental_date' => $request->rental_date,
             'end_date' => $request->end_date,
             'total_price' => $request->total_price,

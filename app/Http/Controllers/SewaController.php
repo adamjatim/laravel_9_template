@@ -66,21 +66,17 @@ class SewaController extends Controller
     {
         $request->validate([
             'car_id' => 'required',
-            'user_id' => 'required',
             'rental_date' => 'required',
             'end_date' => 'required',
             'total_price' => 'required',
-            'status' => 'required',
         ]);
 
         $rental = Rental::findOrFail($id);
         $rental->update([
             'car_id' => $request->car_id,
-            'user_id' => $request->user_id,
             'rental_date' => $request->rental_date,
             'end_date' => $request->end_date,
             'total_price' => $request->total_price,
-            'status' => $request->status,
         ]);
 
         return redirect()->route('user.index')->with('success', 'Penyewaan berhasil diperbarui.');

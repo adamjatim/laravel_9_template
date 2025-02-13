@@ -21,24 +21,41 @@
                 </svg>
             </button>
 
-            {{-- Menu Navigasi Desktop --}}
-            <div class="hidden sm:flex space-x-4">
-                <a href="/rentals"
-                    class="rounded-md px-3 py-2 text-sm font-medium @if (Route::is('rentals.*')) text-white bg-gray-900
-                @else
-                    text-gray-300 hover:bg-gray-700 hover:text-white @endif">Daftar
-                    Penyewa</a>
-                <a href="/penyewa"
-                    class="rounded-md px-3 py-2 text-sm font-medium @if (Route::is('penyewa.*')) text-white bg-gray-900
+            {{-- Menu Navigasi Desktop admin --}}
+            @if (auth()->user()->role == 'admin')
+                <div class="hidden sm:flex space-x-4">
+                    <a href="/rentals"
+                        class="rounded-md px-3 py-2 text-sm font-medium @if (Route::is('rentals.*')) text-white bg-gray-900
                     @else
                         text-gray-300 hover:bg-gray-700 hover:text-white @endif">Daftar
-                    Penyewa</a>
-                <a href="/cars"
-                    class="rounded-md px-3 py-2 text-sm font-medium @if (Route::is('cars.*')) text-white bg-gray-900
-                @else
-                    text-gray-300 hover:bg-gray-700 hover:text-white @endif">Daftar
-                    Mobil</a>
-            </div>
+                        Rentalan</a>
+                    <a href="/penyewa"
+                        class="rounded-md px-3 py-2 text-sm font-medium @if (Route::is('penyewa.*')) text-white bg-gray-900
+                    @else
+                        text-gray-300 hover:bg-gray-700 hover:text-white @endif">Daftar
+                        Penyewa</a>
+                    <a href="/cars"
+                        class="rounded-md px-3 py-2 text-sm font-medium @if (Route::is('cars.*')) text-white bg-gray-900
+                    @else
+                        text-gray-300 hover:bg-gray-700 hover:text-white @endif">Daftar
+                        Mobil</a>
+                </div>
+            @else
+                {{-- Menu Navigasi desktop user biasa --}}
+                <div class="hidden sm:flex space-x-4">
+                    <a href="/mobils"
+                        class="rounded-md px-3 py-2 text-sm font-medium @if (Route::is('mobils.*')) text-white bg-gray-900
+                    @else
+                        text-gray-300 hover:bg-gray-700 hover:text-white @endif">Daftar
+                        Mobil</a>
+                    <a href="/sewa"
+                        class="rounded-md px-3 py-2 text-sm font-medium @if (Route::is('sewa.*')) text-white bg-gray-900
+                    @else
+                        text-gray-300 hover:bg-gray-700 hover:text-white @endif">Daftar
+                        Sewaan</a>
+                </div>
+            @endif
+
 
             {{-- Profil & Logout --}}
             <div class="hidden sm:flex items-center space-x-4">
@@ -56,20 +73,42 @@
 
     {{-- Mobile Menu --}}
     <div id="mobile-menu" class="hidden sm:hidden bg-gray-900 text-white p-4 space-y-2">
-        <a href="/rentals"
-            class="block rounded-md px-3 py-2 text-sm font-medium
+        {{-- Mobile Menu Admin --}}
+        @if (auth()->user()->role == 'admin')
+            <a href="/rentals"
+                class="block rounded-md px-3 py-2 text-sm font-medium
                 @if (Route::is('rentals.*')) text-white bg-gray-800
                 @else
                     text-gray-300 hover:bg-gray-700 hover:text-white @endif">Daftar
-            Penyewa
-        </a>
-        <a href="/cars"
-            class="block rounded-md px-3 py-2 text-sm font-medium
+                Rentalan
+            </a>
+            <a href="/penyewa"
+                class="block rounded-md px-3 py-2 text-sm font-medium
+                @if (Route::is('rentals.*')) text-white bg-gray-800
+                @else
+                    text-gray-300 hover:bg-gray-700 hover:text-white @endif">Daftar
+                Penyewa
+            </a>
+            <a href="/cars"
+                class="block rounded-md px-3 py-2 text-sm font-medium
                 @if (Route::is('cars.*')) text-white bg-gray-900
                 @else
                     text-gray-300 hover:bg-gray-700 hover:text-white @endif">Daftar
-            Mobil
-        </a>
+                Mobil
+            </a>
+        @else
+            {{-- Mobile Menu User Biasa --}}
+            <a href="/mobils"
+                class="block rounded-md px-3 py-2 text-sm font-medium @if (Route::is('mobils.*')) text-white bg-gray-900
+                @else
+                    text-gray-300 hover:bg-gray-700 hover:text-white @endif">Daftar
+                Mobil</a>
+            <a href="/sewa"
+                class="block rounded-md px-3 py-2 text-sm font-medium @if (Route::is('sewa.*')) text-white bg-gray-900
+                @else
+                    text-gray-300 hover:bg-gray-700 hover:text-white @endif">Daftar
+                Sewaan</a>
+        @endif
         {{-- Profil & Logout --}}
         <div class=" block sm:flex items-center space-x-4">
             {{-- <span class="text-white text-sm">{{ Auth::user()->name }}</span> --}}
