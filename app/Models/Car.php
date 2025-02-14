@@ -9,7 +9,7 @@ class Car extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['name', 'brand', 'year', 'price'];
+    protected $fillable = ['name', 'brand', 'image', 'year', 'price'];
 
     public function owners()
     {

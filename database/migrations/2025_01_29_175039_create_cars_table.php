@@ -17,6 +17,7 @@ return new class extends Migration
             $table->increments('id');
             $table->string('name', 100)->required();
             $table->string('brand', 100);
+            $table->string('image')->nullable();
             $table->integer('year');
             $table->decimal('price', 10, 2);
             $table->timestamps();

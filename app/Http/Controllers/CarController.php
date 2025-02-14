@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Models\Car;
+use Illuminate\Support\Facades\Storage;
 
 class CarController extends Controller
 {
@@ -45,13 +46,24 @@ class CarController extends Controller
             'price' => 'required',
             'name' => 'required',
             'brand' => 'required',
+            'image' => 'image|mimes:jpeg,png,jpg,gif',
             'year' => 'required',
         ]);
+
+        // Berikan nilai default untuk $imagePath
+        // $imagePath = null;
+        $imagePath = $request->file('image')->storeAs('cars', 'public'); // Simpan di folder 'public/storage/cars'
+
+        // Simpan gambar ke storage
+        if ($request->hasFile('image')) {
+            $imagePath = $request->file('image')->storeAs('cars', 'public'); // Simpan di folder 'public/storage/cars'
+        }
 
         Car::create([
             'name' => $request->name,
             'brand' => $request->brand,
             'year' => $request->year,
+            'image' => $imagePath, // Simpan path gambar
             'price' => $request->price,
         ]);
 

@@ -63,6 +63,17 @@ Route::middleware(['auth'])->group(function () {
         return redirect()->route('sewa.index');
     })->name('home')->middleware('auth');
 
+    // 📌 Routes untuk Mobils
+    Route::prefix('mobils')->name('mobils.')->group(function () {
+        Route::get('/', [SewaController::class, 'index'])->name('index');
+        Route::get('/create', [SewaController::class, 'create'])->name('create');
+        Route::post('/', [SewaController::class, 'store'])->name('store');
+        Route::get('/{id}/edit', [SewaController::class, 'edit'])->name('edit');
+        Route::put('/{id}', [SewaController::class, 'update'])->name('update');
+        Route::delete('/{id}', [SewaController::class, 'destroy'])->name('destroy');
+        Route::get('/{id}', [SewaController::class, 'show'])->name('show');
+    });
+
     // 📌 Routes untuk Sewa
     Route::prefix('sewa')->name('sewa.')->group(function () {
         Route::get('/', [SewaController::class, 'index'])->name('index');
@@ -73,7 +84,4 @@ Route::middleware(['auth'])->group(function () {
         Route::delete('/{id}', [SewaController::class, 'destroy'])->name('destroy');
         Route::get('/{id}', [SewaController::class, 'show'])->name('show');
     });
-
-    // 📌 Dashboard untuk user biasa
-    // Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard.user');
 });
